@@ -14,7 +14,7 @@ const Customizer = () => {
   const [file, setFile] = useState('');
   const [prompt, setPrompt] = useState('');
   const [generatingImg, setGeneratingImg] = useState(false);
-  const [ activeEditorTab, setActiveEditorTab] = useState('');
+  const [activeEditorTab, setActiveEditorTab] = useState('');
   const [activeFilterTab, setActiveFilterTab] = useState({
     logoShirt: true,
     stylishShirt: false,
@@ -44,7 +44,7 @@ const Customizer = () => {
   }
 
   const handleSubmit = async (type) => {
-    if(!prompt) return alert("Please enter a prompt");
+    if (!prompt) return alert("Please enter a prompt");
     try {
       setGeneratingImg(true);
 
@@ -53,7 +53,7 @@ const Customizer = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify ({
+        body: JSON.stringify({
           prompt,
         })
       })
@@ -64,7 +64,7 @@ const Customizer = () => {
 
     } catch (error) {
       alert(error)
-    }finally {
+    } finally {
       setGeneratingImg(false);
       setActiveEditorTab("");
     }
@@ -75,7 +75,7 @@ const Customizer = () => {
 
     state[decalType.stateProperty] = result;
 
-    if(!activeFilterTab[decalType.filterTab]) {
+    if (!activeFilterTab[decalType.filterTab]) {
       handleActiveFilterTab(decalType.filterTab)
     }
   }
@@ -160,7 +160,24 @@ const Customizer = () => {
                 isActiveTab={activeFilterTab[tab.name]}
                 handleClick={() => handleActiveFilterTab(tab.name)}
               />
-                ))}
+            ))}
+
+            {/* {DownloadTabs.map((tab) => (
+              <Tab
+                key={tab.name}
+                tab={tab}
+                handleClick={downloadCanvasToImage}
+              />
+            ))} */}
+
+            <button className='download-btn' onClick={downloadCanvasToImage}>
+              <img
+                src={download}
+                alt='download_image'
+                className='w-3/5 h-3/5 object-contain'
+              />
+            </button>
+
           </motion.div>
         </>
       )}
